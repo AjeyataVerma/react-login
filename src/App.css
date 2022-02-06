@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,19 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+
+h1{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.label{
+  margin-left: 390px;
+
+}
+.card{
+  width: 50%;
+  margin: 0 auto;
 }
