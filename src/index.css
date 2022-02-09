@@ -24,3 +24,26 @@ code {
   justify-content: center;
   align-items: center;
 }
+.msg{
+  text-align: center;
+}
+
+.f{
+  display: flex;
+}
+
+
+h1{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+/* .label{
+  margin-left: 390px;
+
+} */
+.card{
+  width: 50%;
+  margin: 0 auto;
+}

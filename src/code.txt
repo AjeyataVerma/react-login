@@ -1,0 +1,35 @@
+{/* <h1 className='h1'>{title}</h1>
+      <br></br> */}
+      {/* <button onClick={()=> toggle()}>Show Projects</button> */}
+       {showLogin
+        ?(        
+          //<LoginForm onLoginSuccess={onLoginSuccess}/>    
+          <SignupForm onLoginSuccess={onLoginSuccess}/>    
+         
+        ):(
+        <div>
+            <button onClick={()=> toggle()}>Logout</button>
+
+        <ProjectCard/>
+        </div>
+      )}
+
+
+
+
+
+
+
+
+        // let [showLogin, setShowLogin] = useState(true)
+  // const title = showLogin? "Login Page" : "Users"
+  // const toggle = () => {setShowLogin(!showLogin)}
+
+  // useEffect(()=>{
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn")
+  //   if(isLoggedIn) setShowLogin(false)
+  // },[])
+  // const onLoginSuccess = () => {
+  //   setShowLogin(false)
+  //   localStorage.setItem("isLoggedIn", true)
+  //}
