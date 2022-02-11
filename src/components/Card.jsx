@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -15,6 +17,8 @@ const Users = (props) => {
 	//const { imgAltText, imgSrcUrl, cardTitle, description } = props;
 	const [users, setUsers] = useState("");
 	let navigate = useNavigate();
+	const { userId } = useParams();
+
 	const f = async () => {
 		const res = await fetch("https://reqres.in/api/users/");
 		const json = await res.json();
@@ -22,7 +26,7 @@ const Users = (props) => {
 	};
 	useEffect(() => {
 		f();
-	}, []);
+	}, [userId]);
 	return (
 		<>
 			<h1 className="h1">Users</h1>
@@ -59,7 +63,14 @@ const Users = (props) => {
 										}}
 									/>
 									<CardBody>
-										<CardTitle tag="h5" style={{ textAlign: "center" }}>
+										<CardTitle
+											tag="h5"
+											style={{ textAlign: "center" }}
+											onClick={() => {
+												//deleteInvoice(invoice.number);
+												navigate(`/users/${user.id}`);
+											}}
+										>
 											{user.first_name}
 										</CardTitle>
 
