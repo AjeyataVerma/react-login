@@ -3,30 +3,21 @@ import { useParams } from "react-router-dom";
 
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
-import {
-	Card,
-	CardBody,
-	CardImg,
-	CardTitle,
-	CardText,
-	Button,
-	Container,
-} from "reactstrap";
+import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
 const Blogs = () => {
-	const [posts, setPosts] = useState("");
+	const [posts, setPosts] = useState([]);
 	let navigate = useNavigate();
-	const { userId } = useParams();
+	// const { id } = useParams();
+	// console.log(id);
 
-	const f = async () => {
-		const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-		const json = await res.json();
-		setPosts(json.data);
-	};
 	useEffect(() => {
-		f();
-	}, [userId]);
-
+		fetch("https://jsonplaceholder.typicode.com/posts")
+			.then((response) => response.json())
+			//.then((json) => console.log(json))
+			.then((data) => setPosts(data))
+			.catch((err) => console.log(err));
+	}, []);
 	return (
 		<>
 			<h1 className="h1">Blogs</h1>
@@ -41,10 +32,10 @@ const Blogs = () => {
 										<CardTitle
 											tag="h5"
 											style={{ textAlign: "center" }}
-											// onClick={() => {
-											// 	//deleteInvoice(invoice.number);
-											// 	navigate(`/users/${user.id}`);
-											// }}
+											onClick={() => {
+												//deleteInvoice(invoice.number);
+												navigate(`/blogs/${post.id}`);
+											}}
 										>
 											{post.title}
 										</CardTitle>

@@ -4,6 +4,8 @@ import LoginForm from './views/Login'
 import Users  from './components/Card';
 import SignupForm from './views/Signup';
 import Blogs from './views/Blogs'
+import BlogDetails from './views/BlogDetails';
+import Home from './views/Home';
 import { UserDetails } from './views/UserDetails';
 import {
   BrowserRouter,
@@ -22,15 +24,16 @@ function App() {
 						paddingBottom: "1rem",
 					}}
 				>
-					<Link to="/login">Login</Link> | <Link to="/blogs">Blogs</Link>
+					<Link to="/login">Login</Link> | <Link to="/signup">Signup</Link> | <Link to="/blogs">Blogs</Link>
 				</nav>
     <Routes>
-      <Route path="/" element={<LoginForm />} />
+      <Route path="/" element={<Home />} />
      
       <Route path="/signup" element={<SignupForm />} />
       <Route path="/login" element={<LoginForm />} />
       
       <Route path="/blogs" element={<Blogs/>} />
+      <Route path="/blogs/:id" element={<BlogDetails />} />
       <Route path="/users" element={<Users />}>	</Route>
       <Route path="/users/:userId" element={<UserDetails />} />
       

@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import {
+	userDataFailure,
+	userDataInitiate,
+	userDataSuccess,
+} from "../redux/users/action";
+import { useDispatch, useSelector } from "react-redux";
 
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,20 +19,26 @@ import {
 	Container,
 } from "reactstrap";
 
-const Users = (props) => {
+const Users = () => {
 	//const { imgAltText, imgSrcUrl, cardTitle, description } = props;
-	const [users, setUsers] = useState("");
+	//const [users, setUsers] = useState("");
+	const users = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	console.log(users);
 	let navigate = useNavigate();
 	const { userId } = useParams();
 
-	const f = async () => {
-		const res = await fetch("https://reqres.in/api/users/");
-		const json = await res.json();
-		setUsers(json.data);
-	};
 	useEffect(() => {
-		f();
-	}, [userId]);
+		dispatch(userDataInitiate());
+		fetch("https://reqres.in/api/users/")
+			.then((response) => response.json())
+			//.then((json) => console.log(json))
+			.then((res) => dispatch(userDataSuccess(res.data)))
+			//.then((data) => setUsers(data))
+			.catch((err) => console.log(err));
+
+		console.log(users);
+	}, []);
 	return (
 		<>
 			<h1 className="h1">Users</h1>
@@ -44,45 +56,44 @@ const Users = (props) => {
 				</Button>
 			</Container>
 			<div className="flex">
-				{users.length &&
-					users.map((user) => {
-						return (
-							// <CardGroup>
-							<Card>
-								<div key={user.id}>
-									<CardImg
-										alt={user.avatar}
-										src={user.avatar}
-										top
-										style={{
-											width: "40%",
-											height: "40%",
-											marginLeft: "30%",
-											textAlign: "center",
-											marginTop: "5%",
+				{users.userData.map((user) => {
+					return (
+						// <CardGroup>
+						<Card>
+							<div key={user.id}>
+								<CardImg
+									alt={user.avatar}
+									src={user.avatar}
+									top
+									style={{
+										width: "40%",
+										height: "40%",
+										marginLeft: "30%",
+										textAlign: "center",
+										marginTop: "5%",
+									}}
+								/>
+								<CardBody>
+									<CardTitle
+										tag="h5"
+										style={{ textAlign: "center" }}
+										onClick={() => {
+											//deleteInvoice(invoice.number);
+											navigate(`/users/${user.id}`);
 										}}
-									/>
-									<CardBody>
-										<CardTitle
-											tag="h5"
-											style={{ textAlign: "center" }}
-											onClick={() => {
-												//deleteInvoice(invoice.number);
-												navigate(`/users/${user.id}`);
-											}}
-										>
-											{user.first_name}
-										</CardTitle>
+									>
+										{user.first_name}
+									</CardTitle>
 
-										<CardText style={{ textAlign: "center" }}>
-											{user.email}
-										</CardText>
-									</CardBody>
-								</div>
-							</Card>
-							//</CardGroup>
-						);
-					})}
+									<CardText style={{ textAlign: "center" }}>
+										{user.email}
+									</CardText>
+								</CardBody>
+							</div>
+						</Card>
+						//</CardGroup>
+					);
+				})}
 			</div>
 		</>
 	);
